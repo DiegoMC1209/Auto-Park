@@ -1,5 +1,6 @@
+from flask import Flask, render_template, request, flash, url_for
 import mysql.connector
-import conexao
+import conexao, this 
 from random import randint
 db_connection = conexao.conectar() #Abrindo a conexão com o banco de dados
 con = db_connection.cursor()
@@ -36,3 +37,26 @@ def inserir(nome, cpf, celular, email, senha):
     except Exception as erro:
         print(erro)
 
+def loginGerente(cpfGerente, senhaGerente):
+    try:
+            sql = "select * from gerente where cpf = '{}' and senha = '{}'".format(cpfGerente,senhaGerente)
+            con.execute(sql)
+
+            for (cpf, nome, celular, email, senha) in con:
+                print(cpfGerente, senhaGerente)
+            return render_template('/index.html', titulo='Página Principal')
+    except Exception as erro:
+        print(erro)
+
+
+  #      def login(cpf,senha):
+  #  try:
+#     sql = "select senha from gerente where cpf = '{}';".format(cpf)
+  #      con.execute(sql)  # prepara o comando para ser executado
+  #
+  #      for (senha) in con:
+  #          print(senha[0])
+  #          if this.senha == senha[0]:
+   #             print("Login Efetuado com sucesso")
+   # except Exception as erro:
+    #    print(erro)

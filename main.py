@@ -1,3 +1,4 @@
+import re
 import operacoesLogin, operacoes
 from flask import Flask, render_template, request, flash, url_for
 import this
@@ -12,6 +13,9 @@ def pag_inicial():
 
 @pessoa.route('/login.html', methods=['GET', 'POST'])
 def pag_login():
+    if request.method == 'POST':
+        this.cpf = request.form['cpfGerente']
+        this.senha = request.form['senhaGerente']
     return render_template('/login.html', titulo='Página Principal')
 
 #cadastrar Funcionário
